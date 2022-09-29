@@ -19,7 +19,7 @@ public class Main {
         }
 
         commission = commission * 0.09 + 200;
-        System.out.printf("Commission: $%f", commission);
+        System.out.printf("Commission: $%.2f", commission);
 
         input.close();
 
