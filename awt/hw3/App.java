@@ -72,7 +72,7 @@ public class App extends Frame implements TextListener, ItemListener, ActionList
 
         weightDisplay.setBounds(0, 275, 500, 60);
         weightDisplay.setForeground(Color.BLUE);
-        weightDisplay.setFont(new Font("Serief", Font.BOLD + Font.ITALIC, 30));
+        weightDisplay.setFont(new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 30));
 
         suggestionDisplay.setBounds(0, 340, 500, 40);
         suggestionDisplay.setFont(new Font("Serief", Font.PLAIN, 16));
