@@ -98,11 +98,11 @@ public class App extends Frame implements ActionListener {
 
         int age = ageField.getSelectedIndex() + 1;
         double weight = Double.parseDouble(weightField.getText());
-        double height = Double.parseDouble(heightField.getText());
+        double height = Double.parseDouble(heightField.getText()) / 100;
         String name = nameField.getText();
         String suggestion;
 
-        double BMI = weight / (height / 100) / (height / 100);
+        double BMI = weight / (height * height);
 
         if(male.getState()) suggestion = String.format("%s(%d歲, 男生):", name, age);
         else suggestion = String.format("%s(%d歲, 女生):", name, age);
