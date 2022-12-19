@@ -1,12 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
 
-public class App extends Frame implements TextListener, ItemListener, ActionListener {
+public class App extends Frame implements ActionListener {
 
     App(String title) { super(title); }
-
-    static final int MALE = 1;
-    static final int FEMALE = 2;
 
     static App frm = new App("BMI");
     static Panel fields = new Panel(new GridLayout(5, 1));
@@ -26,12 +23,6 @@ public class App extends Frame implements TextListener, ItemListener, ActionList
 
     static String[] FieldsDisplay = {"名字", "體重", "身高", "性別", "年齡"};
     static String[] unitHintDisplay = {"(公斤)", "(公分)"};
-    static String name;
-    static double weight;
-    static double height;
-    static double BMI;
-    static int gender;
-    static int age;
 
     public static void main(String[] args) {
         
@@ -57,10 +48,8 @@ public class App extends Frame implements TextListener, ItemListener, ActionList
 
         textFields.add(nameField); textFields.add(weightField); textFields.add(heightField);
         textFields.setBounds(100, 52, 100, 100);
-        for(Component txf : textFields.getComponents()) ((TextField)txf).addTextListener(frm);
 
         male.setCheckboxGroup(genderCheckboxGrp); female.setCheckboxGroup(genderCheckboxGrp);
-        male.addItemListener(frm); female.addItemListener(frm);
         male.setBounds(100, 160, 50, 40);
         male.setFont(GeneralBold);
         female.setBounds(165, 160, 50, 40);
@@ -68,7 +57,6 @@ public class App extends Frame implements TextListener, ItemListener, ActionList
 
         for(int i = 1;i <= 150;i++) ageField.add(String.valueOf(i));
         ageField.setBounds(100, 210, 75, 30);
-        ageField.addItemListener(frm);
 
         weightDisplay.setBounds(0, 275, 500, 60);
         weightDisplay.setForeground(Color.BLUE);
@@ -97,24 +85,6 @@ public class App extends Frame implements TextListener, ItemListener, ActionList
         frm.setVisible(true);
 
     }
-    
-    public void textValueChanged(TextEvent e) {
-
-        TextField txf = (TextField) e.getSource();
-        if(txf == nameField) name = txf.getText();
-        else if(txf == weightField) weight = Double.parseDouble(txf.getText());
-        else height = Double.parseDouble(txf.getText());
-
-    }
-
-    public void itemStateChanged(ItemEvent e) {
-
-        if(male.getState()) gender = MALE;
-        else gender = FEMALE;
-
-        age = ageField.getSelectedIndex() + 1;
-
-    }
 
     public void actionPerformed(ActionEvent e) {
 
@@ -126,12 +96,15 @@ public class App extends Frame implements TextListener, ItemListener, ActionList
 
     private void ComputeBMI() {
 
+        int age = ageField.getSelectedIndex() + 1;
+        double weight = Double.parseDouble(weightField.getText());
+        double height = Double.parseDouble(heightField.getText());
+        String name = nameField.getText();
         String suggestion;
 
-        BMI = weight / (height / 100) / (height / 100);
-        System.out.println(BMI);
+        double BMI = weight / (height / 100) / (height / 100);
 
-        if(gender == MALE) suggestion = String.format("%s(%d歲, 男生):", name, age);
+        if(male.getState()) suggestion = String.format("%s(%d歲, 男生):", name, age);
         else suggestion = String.format("%s(%d歲, 女生):", name, age);
 
         if(BMI < 18.5) { weightDisplay.setText("Under weight"); suggestion += "Eat more !"; }
